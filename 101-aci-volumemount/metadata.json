@@ -1,0 +1,7 @@
+{
+   "itemDisplayName":"Mount an Azure files share in Azure Container Instances",
+   "description":"Mounts an Azure files share to manage state with Azure Container Instances",
+   "summary":"Mounts an Azure files share to manage state with Azure Container Instances",
+   "githubUsername":"seanmck",
+   "dateUpdated":"2016-07-26"
+}
