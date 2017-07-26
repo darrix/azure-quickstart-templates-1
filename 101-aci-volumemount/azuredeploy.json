@@ -1,0 +1,79 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "containerName": {
+        "type": "string"        
+    },
+    "image": {
+        "type": "string"
+    },
+    "volumeMountName": {
+        "type": "string"
+    },
+    "volumeMountPath": {
+        "type": "string"
+    },
+    "shareName": {
+        "type": "string"
+    },
+    "storageAccountName": {
+        "type": "string"
+    },
+    "storageAccountKey": {
+        "type": "string"
+    }
+  },
+  "variables": {
+      "port": 80
+  },
+  "resources":[
+        {
+            "name": "[parameters('containerName')]",
+            "type": "Microsoft.ContainerInstance/containerGroups",
+            "apiVersion": "2017-08-01-preview",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "containers": [
+                    {
+                        "name": "[parameters('containername')]",
+                        "properties": {
+                            "image": "[parameters('image')]",
+                            "ports": [
+                                {
+                                    "port": "[variables('port')]"
+                                }
+                            ],
+                            "volumeMounts": [
+                                {
+                                    "name": "[parameters('volumeMountName')]",
+                                    "mountPath": "[parameters('volumeMountPath')]"
+                                }
+                            ]
+                        }
+                    }                    
+                ],
+                "osType": "Linux",
+                "ipAddress": {
+                    "type": "Public",
+                    "ports": [
+                        {
+                            "protocol": "tcp",
+                            "port": "[variables('port')]"
+                        }
+                    ]
+                 },
+                "volumes": [
+                    {
+                        "name": "[parameters('volumeMountName')]",
+                        "azureFile": {
+                            "shareName": "[parameters('shareName')]",
+                            "storageAccountName": "[parameters('storageAccountName')]",
+                            "storageAccountKey": "[parameters('storageAccountKey')]"
+                        }
+                    }
+                ]
+            }
+        }
+  ]
+}
