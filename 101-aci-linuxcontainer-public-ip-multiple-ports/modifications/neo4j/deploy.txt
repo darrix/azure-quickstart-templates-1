@@ -1,0 +1,1 @@
+az group deployment create -n myDeployment --template-file azuredeploy.json --parameters @azuredeploy.parameters.json -g neoGroup
